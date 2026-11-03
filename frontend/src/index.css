@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces", "Georgia", serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-snap: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* Deep pine — nav, footer, dark surfaces */
+  --color-pine-950: #0e1c15;
+  --color-pine-900: #142a1f;
+  --color-pine-800: #1b3627;
+
+  /* Forest — primary brand green */
+  --color-forest-700: #223f2c;
+  --color-forest-600: #2f5233;
+  --color-forest-500: #3f6a45;
+  --color-forest-400: #56845b;
+
+  --animate-marquee: marquee 50s linear infinite;
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Moss / mist — muted supporting greens */
+  --color-moss-300: #8fa88f;
+  --color-mist-200: #c7d1c2;
+  --color-mist-100: #dfe6da;
+
+  /* Parchment — paper-toned backgrounds */
+  --color-parchment-50: #f4f0e3;
+  --color-parchment-100: #ece4cd;
+  --color-parchment-200: #e0d5b8;
+
+  /* Clay — laterite trail soil, primary accent / CTA */
+  --color-clay-700: #8f3c22;
+  --color-clay-600: #b5502f;
+  --color-clay-500: #c56239;
+  --color-clay-100: #f1ddd0;
+
+  /* Dawn gold — weather, highlight accent */
+  --color-gold-500: #d19a3d;
+  --color-gold-400: #e8b454;
+  --color-gold-100: #faedd2;
+
+  /* Ink — warm near-black text */
+  --color-ink-900: #201c14;
+  --color-ink-700: #3a352a;
+
+  --shadow-elevate: 0 12px 32px -12px rgb(14 28 21 / 0.35);
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-parchment-50);
+  color: var(--color-ink-900);
+}
+
+::selection {
+  background-color: var(--color-clay-600);
+  color: var(--color-parchment-50);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-clay-600);
+  outline-offset: 2px;
+}
+
+/* Cards glide up as they scroll into view (scroll-driven where supported, plain on-load fade elsewhere).
+   Uses `translate` so it never fights the hover-lift `transform`. */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    translate: 0 40px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+.reveal {
+  animation: reveal-up 0.9s var(--ease-smooth) both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 40%;
+}
+
+/* the "Raven's Trail" wordmark only */
+.font-brand {
+  font-family: "Cinzel", "Georgia", serif;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Inner pages: bright and airy. Re-pointing the tokens brightens every existing component at once
+   (white cards, fresher greens) over soft mint / gold / sky glows. */
+.surface-light {
+  --color-ink-900: #14241d;
+  --color-ink-700: #2b3d34;
+  --color-parchment-50: #ffffff;
+  --color-parchment-100: #ffffff;
+  --color-parchment-200: #dfece4;
+  --color-forest-700: #1f5a45;
+  --color-forest-600: #2a7a5b;
+  --color-forest-500: #3a9b72;
+  color: var(--color-ink-900);
+  background-color: #f6faf6;
+  background-image:
+    radial-gradient(50rem 26rem at 90% -5%, rgb(125 211 170 / 0.32), transparent),
+    radial-gradient(40rem 24rem at 0% 40%, rgb(255 214 140 / 0.3), transparent),
+    radial-gradient(40rem 24rem at 100% 85%, rgb(147 197 253 / 0.28), transparent);
+}
+.surface-light .rounded-2xl.border,
+.surface-light .rounded-3xl.border {
+  box-shadow: 0 10px 30px -16px rgb(20 36 29 / 0.22);
+}
+
+/* Keep browser autofill from painting inputs light blue on the dark auth cards. */
+.auth-input:-webkit-autofill {
+  -webkit-text-fill-color: #fff;
+  caret-color: #fff;
+  box-shadow: 0 0 0 1000px #2a4b55 inset;
+}
+
+.leaflet-container {
+  font-family: var(--font-body);
+}
+
+.contour-bg {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cg fill='none' stroke='%23223f2c' stroke-opacity='0.08' stroke-width='1.2'%3E%3Cpath d='M-20 60 Q100 10 200 60 T420 60'/%3E%3Cpath d='M-20 110 Q100 60 200 110 T420 110'/%3E%3Cpath d='M-20 160 Q100 110 200 160 T420 160'/%3E%3Cpath d='M-20 210 Q100 160 200 210 T420 210'/%3E%3Cpath d='M-20 260 Q100 210 200 260 T420 260'/%3E%3Cpath d='M-20 310 Q100 260 200 310 T420 310'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 400px 400px;
+}
