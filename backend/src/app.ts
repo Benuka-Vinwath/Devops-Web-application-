@@ -9,6 +9,9 @@ import { notFoundHandler, errorHandler } from "./middleware/errorHandler.js";
 export function createApp() {
   const app = express();
 
+  // behind the nginx container: use the real client address (X-Forwarded-For) for rate limits
+  app.set("trust proxy", 1);
+
   app.use(helmet());
   app.use(
     cors({
