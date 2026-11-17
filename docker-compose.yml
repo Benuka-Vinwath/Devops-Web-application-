@@ -1,3 +1,6 @@
+# fixed project name so manual runs and Jenkins builds manage the same containers
+name: ravens-trail
+
 services:
   db:
     image: postgres:16-alpine
@@ -30,7 +33,7 @@ services:
   frontend:
     build: ./frontend
     ports:
-      - "80:80"
+      - "8888:80" # rootless Docker cannot bind ports below 1024
     depends_on:
       - backend
     restart: unless-stopped
